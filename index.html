@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Weather Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <sidebar class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <h2>Weather.io</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="active" id="nav-dashboard"><i class="fa-solid fa-border-all"></i> Dashboard</a>
+                <a href="#"><i class="fa-solid fa-map-location-dot"></i> Map</a>
+                <a href="#" id="nav-saved"><i class="fa-solid fa-heart"></i> Saved Locations</a>
+                <a href="#" id="nav-calendar"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round">
+                        <i class="fa-solid fa-sun icon-sun"></i>
+                        <i class="fa-solid fa-moon icon-moon"></i>
+                    </div>
+                </label>
+                <em>Dark Mode</em>
+            </div>
+        </sidebar>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="city-search" placeholder="Search city and press Enter...">
+                </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User">
+                </div>
+            </header>
+
+            <div id="loader" class="state-message">
+                <div class="spinner"></div>
+                <p>Fetching weather data...</p>
+            </div>
+            
+            <div id="error-message" class="state-message hidden">
+                <p id="error-text">Unable to fetch weather.</p>
+                <button onclick="fetchWeatherData()">Try Again</button>
+            </div>
+
+            <div id="weather-content" class="dashboard-grid hidden">
+                <!-- Current Weather -->
+                <div class="widget current-weather">
+                    <div class="location-info">
+                        <h2 id="location-name">--</h2>
+                        <p id="date"></p>
+                    </div>
+                    <div class="weather-main">
+                        <div class="weather-icon" id="weather-icon">☁️</div>
+                        <div class="temp">
+                            <h1 id="temperature">--</h1><span class="unit">°C</span>
+                        </div>
+                    </div>
+                    <p id="weather-desc" class="condition">--</p>
+                    <button id="save-location-btn" class="save-location-btn">Save This Location</button>
+                </div>
+
+                <!-- Highlights -->
+                <div class="widget highlights">
+                    <h3>Today's Highlights</h3>
+                    <div class="highlights-grid">
+                        <div class="highlight-card">
+                            <p class="label">Wind Status</p>
+                            <h2 id="wind-speed">-- <span class="unit">km/h</span></h2>
+                            <p class="desc" id="wind-dir-desc">--</p>
+                        </div>
+                        <div class="highlight-card">
+                            <p class="label">Humidity</p>
+                            <h2 id="humidity">-- <span class="unit">%</span></h2>
+                            <div class="progress-bar"><div class="progress" id="humidity-bar"></div></div>
+                        </div>
+                        <div class="highlight-card">
+                            <p class="label">Visibility</p>
+                            <h2 id="visibility">-- <span class="unit">km</span></h2>
+                        </div>
+                        <div class="highlight-card">
+                            <p class="label">Air Pressure</p>
+                            <h2 id="pressure">-- <span class="unit">hPa</span></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forecast -->
+                <div class="widget forecast">
+                    <h3>5-Day Forecast</h3>
+                    <div class="forecast-list" id="forecast-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="saved-panel" class="panel hidden">
+                <div class="panel-header-row">
+                    <h3>Saved Locations</h3>
+                    <p>Quickly jump to your favorite places.</p>
+                </div>
+                <div id="saved-locations-list" class="saved-locations-list"></div>
+            </div>
+
+            <div id="calendar-panel" class="panel hidden">
+                <div class="panel-header-row">
+                    <h3>Weather Calendar</h3>
+                    <p>Pick a date to view forecast details.</p>
+                </div>
+                <div class="calendar-controls">
+                    <label for="calendar-date">Select date</label>
+                    <input type="date" id="calendar-date">
+                </div>
+                <div id="calendar-weather" class="calendar-weather-card">
+                    Select a date to see forecast information.
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
